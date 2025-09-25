@@ -34,23 +34,23 @@ function draw() {
 push();
 fill(cloud1.fill.r,cloud1.fill.g,cloud1.fill.b,);
 ellipse(cloud1.x,cloud1.y,cloud1.width,cloud1.height);
-cloud1.x = cloud1.x-1;
+cloud1.x = cloud1.x-0.2;
 ellipse(cloud2.x,cloud2.y,cloud2.width,cloud2.height);
-cloud2.x = cloud2.x-1;
+cloud2.x = cloud2.x-0.2;
 ellipse(cloud3.x,cloud3.y,cloud3.width,cloud3.height);
-cloud3.x = cloud3.x-1;
+cloud3.x = cloud3.x-0.2;
 ellipse(cloud4.x,cloud4.y,cloud4.width,cloud4.height);
-cloud4.x = cloud4.x-1;
+cloud4.x = cloud4.x-0.2;
 ellipse(cloud5.x,cloud1.y,cloud5.width,cloud5.height);
-cloud5.x = cloud5.x-1;
+cloud5.x = cloud5.x-0.2;
 ellipse(cloud6.x,cloud6.y,cloud6.width,cloud6.height);
-cloud6.x = cloud6.x-1;
+cloud6.x = cloud6.x-0.2;
 ellipse(cloud7.x,cloud7.y,cloud7.width,cloud7.height);
-cloud7.x = cloud7.x-1;
+cloud7.x = cloud7.x-0.2;
 ellipse(cloud8.x,cloud8.y,cloud8.width,cloud8.height);
-cloud8.x = cloud8.x-1;
+cloud8.x = cloud8.x-0.2;
 ellipse(cloud9.x,cloud9.y,cloud9.width,cloud9.height);
-cloud9.x = cloud9.x-1;
+cloud9.x = cloud9.x-0.2;
 
 pop();
    
@@ -115,8 +115,8 @@ fill(40,30,200);rect(1100,700,400,200);ellipse(1500,870,100,200)
 //hat cap
 push();stroke(0);strokeWeight(2);fill("#ece934ff");ellipse(1430,270,50);push();fill(230,100,100);angleMode(DEGREES);rotate(15);ellipse(1430,-35,200,130);rect(1150,-20,380,50);pop();
 
-push();noStroke();fill(180,190,220);rect(1270,700,250,75);rect(1070,700,75,75);
-fill(220,160,140);angleMode(DEGREES);rotate(-45);rect(315,1255,140);
+push();stroke(0);fill(2200,190,220);rect(1270,700,250,75);rect(1070,700,75,75);noStroke();
+fill(220,160,140);angleMode(DEGREES);rotate(-45);rect(315,1259,134);
 fill(40,30,200);rotate(-30);rect(-590,1050,110,270);pop();
 
 
