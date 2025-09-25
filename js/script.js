@@ -105,25 +105,36 @@ pop();
 
 //kid
 push();
-noStroke();
-fill(220,160,140);ellipse(1100,500,400,300);rect(900,500,400);rect(900,500,400);
-ellipse(665,780,150);
-push();stroke(0);strokeWeight(2);ellipse(900,475,200,50);ellipse(1300,500,100,150);ellipse(1270,500,50,75);pop();
-ellipse(1050,475,200);ellipse(1180,490,200);
+stroke(0);
+fill(220,160,140);ellipse(1300,500,400,300);noStroke();stroke(0);rect(1100,500,400);noStroke();
+ellipse(820,770,150);
+push();stroke(0);strokeWeight(2);ellipse(1100,485,210,60);ellipse(1500,500,100,150);ellipse(1490,500,80,110);ellipse(1470,500,60,75);pop();
+ellipse(1250,475,200);ellipse(1385,500,200);
 //clothes + neck skin at end
-fill(40,30,200);rect(900,700,400,200);
-fill(180,190,220);rect(1070,700,250,75);rect(870,700,75,75);
-fill(220,160,140);angleMode(DEGREES);rotate(-45);rect(180,1100,150);
-fill(40,30,200);rotate(-30);rect(-640,900,110,270);
-pop();
+fill(40,30,200);rect(1100,700,400,200);ellipse(1500,870,100,200)
+//hat cap
+push();stroke(0);strokeWeight(2);fill("#ece934ff");ellipse(1430,270,50);push();fill(230,100,100);angleMode(DEGREES);rotate(15);ellipse(1430,-35,200,130);rect(1150,-20,380,50);pop();
+
+push();noStroke();fill(180,190,220);rect(1270,700,250,75);rect(1070,700,75,75);
+fill(220,160,140);angleMode(DEGREES);rotate(-45);rect(315,1255,140);
+fill(40,30,200);rotate(-30);rect(-590,1050,110,270);pop();
+
 
 push();
 //eyes
-fill(0);
-stroke(255);
+fill(255);
+stroke(0);
 strokeWeight(2);
-ellipse(975,420,70,110);
-ellipse(1030,420,70,110);
+ellipse(1175,420,70,110);
+ellipse(1230,420,70,110);
+fill(0);
+ellipse(1160,430,40,60);
+ellipse(1215,430,40,60);
+pop();
+
+push();
+////kid lips
+fill(190,120,120);angleMode(DEGREES);rotate(-15);ellipse(930,880,150,50);rotate(15);ellipse(1110,570,150,50);
 pop();
 
 }
