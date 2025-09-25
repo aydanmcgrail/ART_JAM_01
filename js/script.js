@@ -9,6 +9,10 @@ let cloud6={x:1010,y:90,width:200,height:60,fill:{r:200, g:220,b:240}}
 let cloud7={x:4250,y:90,width:150,height:50,fill:{r:200, g:220,b:240}}
 let cloud8={x:4120,y:80,width:290,height:120,fill:{r:200, g:220,b:240}}
 let cloud9={x:4010,y:90,width:200,height:60,fill:{r:200, g:220,b:240}}
+
+
+//kid
+//let kid
 /**
  * Creates the canvas
  */
@@ -97,6 +101,29 @@ pop();
 //vase
 push();
   fill("#d56038ff");stroke("#9b521bff");strokeWeight(6);rect(210,780,180,120);rect(200,780,200,50);
+pop();
+
+//kid
+push();
+noStroke();
+fill(220,160,140);ellipse(1100,500,400,300);rect(900,500,400);rect(900,500,400);
+ellipse(665,780,150);
+push();stroke(0);strokeWeight(2);ellipse(900,475,200,50);ellipse(1300,500,100,150);ellipse(1270,500,50,75);pop();
+ellipse(1050,475,200);ellipse(1180,490,200);
+//clothes + neck skin at end
+fill(40,30,200);rect(900,700,400,200);
+fill(180,190,220);rect(1070,700,250,75);rect(870,700,75,75);
+fill(220,160,140);angleMode(DEGREES);rotate(-45);rect(180,1100,150);
+fill(40,30,200);rotate(-30);rect(-640,900,110,270);
+pop();
+
+push();
+//eyes
+fill(0);
+stroke(255);
+strokeWeight(2);
+ellipse(975,420,70,110);
+ellipse(1030,420,70,110);
 pop();
 
 }
