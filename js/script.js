@@ -1,5 +1,14 @@
 "use strict";
-
+//clouds will be moving
+let cloud1={x:2200,y:50,width:440,height:130,fill:{r:200, g:220,b:240}}
+let cloud2={x:2230,y:50,width:110,height:40,fill:{r:200, g:220,b:240}}
+let cloud3={x:2350,y:70,width:200,height:70,fill:{r:200, g:220,b:240}}
+let cloud4={x:1250,y:90,width:150,height:50,fill:{r:200, g:220,b:240}}
+let cloud5={x:1120,y:80,width:290,height:120,fill:{r:200, g:220,b:240}}
+let cloud6={x:1010,y:90,width:200,height:60,fill:{r:200, g:220,b:240}}
+let cloud7={x:4250,y:90,width:150,height:50,fill:{r:200, g:220,b:240}}
+let cloud8={x:4120,y:80,width:290,height:120,fill:{r:200, g:220,b:240}}
+let cloud9={x:4010,y:90,width:200,height:60,fill:{r:200, g:220,b:240}}
 /**
  * Creates the canvas
  */
@@ -8,28 +17,38 @@ function setup() {
   background(100, 100, 10);
 }
 
-//clouds will be moving
-let cloud1={fill:{r:200, g:220,b:240},x:1100,y:50,width:440,height:130}
-let cloud2={fill:{r:200, g:220,b:240},x:1130,y:50,width:110,height:40}
-let cloud3={fill:{r:200, g:220,b:240},x:1250,y:70,width:200,height:70}
-let cloud4={fill:{r:200, g:220,b:240},x:850,y:90,width:150,height:50}
-let cloud5={fill:{r:200, g:220,b:240},x:720,y:80,width:290,height:120}
-let cloud6={fill:{r:200, g:220,b:240},x:610,y:90,width:200,height:60}
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 function draw() {
   // The void
   background("#599ce8ff");
+
+  endcloud();
   
   //clouds
-cloud1.x=cloud1.x-1
-cloud2.x=cloud2.x-1
-cloud3.x=cloud3.x-1
-cloud4.x=cloud4.x-1
-cloud5.x=cloud5.x-1
-cloud6.x=cloud6.x-1
+push();
+fill(cloud1.fill.r,cloud1.fill.g,cloud1.fill.b,);
+ellipse(cloud1.x,cloud1.y,cloud1.width,cloud1.height);
+cloud1.x = cloud1.x-1;
+ellipse(cloud2.x,cloud2.y,cloud2.width,cloud2.height);
+cloud2.x = cloud2.x-1;
+ellipse(cloud3.x,cloud3.y,cloud3.width,cloud3.height);
+cloud3.x = cloud3.x-1;
+ellipse(cloud4.x,cloud4.y,cloud4.width,cloud4.height);
+cloud4.x = cloud4.x-1;
+ellipse(cloud5.x,cloud1.y,cloud5.width,cloud5.height);
+cloud5.x = cloud5.x-1;
+ellipse(cloud6.x,cloud6.y,cloud6.width,cloud6.height);
+cloud6.x = cloud6.x-1;
+ellipse(cloud7.x,cloud7.y,cloud7.width,cloud7.height);
+cloud7.x = cloud7.x-1;
+ellipse(cloud8.x,cloud8.y,cloud8.width,cloud8.height);
+cloud8.x = cloud8.x-1;
+ellipse(cloud9.x,cloud9.y,cloud9.width,cloud9.height);
+cloud9.x = cloud9.x-1;
+
+pop();
    
 push();
   //gazon
@@ -80,15 +99,13 @@ push();
   fill("#d56038ff");stroke("#9b521bff");strokeWeight(6);rect(210,780,180,120);rect(200,780,200,50);
 pop();
 
- 
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function endcloud(){
+    if (cloud1.x<800){cloud1.x}
+
 }
 
-function aydansfunction() {
-  fill(0, 212, 255);
-  noStroke();
-  rect(780, 30, 20, 600);
-  
-}
 
 
 
