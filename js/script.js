@@ -12,9 +12,10 @@ let cloud9={x:3010,y:210,width:200,height:60,fill:{r:200, g:220,b:240}}
 
 //let kidSkin ={fill:,fills:{normal:,scared:,stung:}};
 
-let sourcils={fill:{r:0,g:0,b:0,a:0}, fills:{invisible:{r:0,g:0,b:0,a:0},visible:{r:0,g:0,b:0,a:255}}}
+////////////////////////////////,a:0                                a:0                       a:255
+let sourcils={fill:{r:0,g:0,b:0}, fills:{invisible:{r:0,g:0,b:0},visible:{r:0,g:0,b:0}}}
 
-let kidLips ={fill:{r:180,b:120,g:100},fills:{normal:{r:180,b:120,g:100},stung:{r:230,b:120,g:120}}}
+let kidLips ={fill:{r:180,g:100,b:120},fills:{normal:{r:180,g:100,b:120},stung:{r:230,g:120,b:120}}}
 //kid
 //let kid
 
@@ -120,6 +121,7 @@ fill(220,160,140);ellipse(1300,500,400,300);noStroke();stroke(0);rect(1100,500,4
 ellipse(820,770,150);
 push();stroke(0);strokeWeight(2);ellipse(1100,485,210,60);ellipse(1500,500,100,150);ellipse(1490,500,80,110);ellipse(1470,500,60,75);pop();
 ellipse(1250,475,200);ellipse(1385,500,200);
+
 //clothes + neck skin at end
 fill(40,30,200);rect(1100,700,400,200);ellipse(1500,870,100,200),pop();
 
@@ -138,8 +140,7 @@ pop();
 
 
 //sourcils
-push();fill(sourcils.fill);noStroke();angleMode(DEGREES);rotate(-30);rect(770,890,100,50);rotate(45);rect(1250,20,100,50);
-sourcils.fill.r=sourcils.fill.r+30;pop();
+push();noStroke();fill(sourcils.fill);angleMode(DEGREES);rotate(-30);rect(770,890,100,50);rotate(45);rect(1250,20,100,50);pop();
 
 
 //hat cap
@@ -154,6 +155,8 @@ fill(kidLips.fill.r,kidLips.fill.g,kidLips.fill.b);angleMode(DEGREES);rotate(-15
 pop();
 
 image(img1,mouseX-295,mouseY-150,330,270); 
+
+push();fill(0),ellipse(200,400,60,120);pop();
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
