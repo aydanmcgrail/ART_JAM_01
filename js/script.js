@@ -1,45 +1,110 @@
 "use strict";
 //clouds will be moving
-let cloud1={x:2200,y:50,width:440,height:130,fill:{r:200, g:220,b:240}}
-let cloud2={x:2230,y:50,width:110,height:40,fill:{r:200, g:220,b:240}}
-let cloud3={x:2350,y:70,width:200,height:70,fill:{r:200, g:220,b:240}}
-let cloud4={x:1250,y:160,width:150,height:50,fill:{r:200, g:220,b:240}}
-let cloud5={x:1120,y:140,width:290,height:120,fill:{r:200, g:220,b:240}}
-let cloud6={x:1010,y:175,width:200,height:60,fill:{r:200, g:220,b:240}}
-let cloud7={x:3250,y:210,width:150,height:50,fill:{r:200, g:220,b:240}}
-let cloud8={x:3120,y:200,width:290,height:120,fill:{r:200, g:220,b:240}}
-let cloud9={x:3010,y:210,width:200,height:60,fill:{r:200, g:220,b:240}}
+let cloud1 = {
+  x: 2200, 
+  y:50,
+  width:440,
+  height:130,
+  fill:{r:200, g:220,b:240}}
+let cloud2 = {
+  x: 2230,
+  y: 50,
+  width: 110,
+  height: 40,
+  fill: { r: 200, g: 220, b: 240 }
+}
+let cloud3 = {
+  x: 2350,
+  y: 70,
+  width: 200,
+  height: 70,
+  fill: { r: 200, g: 220, b: 240 }
+}
+let cloud4 = {
+  x: 1250,
+  y: 160,
+  width: 150,
+  height: 50,
+  fill: { r: 200, g: 220, b: 240 }
+}
+let cloud5 = {
+  x: 1120,
+  y: 140,
+  width: 290,
+  height: 120,
+  fill: { r: 200, g: 220, b: 240 }
+}
+let cloud6 = {
+  x: 1010,
+  y: 175,
+  width: 200,
+  height: 60,
+  fill: { r: 200, g: 220, b: 240 }
+}
+let cloud7 = {
+  x: 3250,
+  y: 210,
+  width: 150,
+  height: 50,
+  fill: { r: 200, g: 220, b: 240 }
+}
+let cloud8 = {
+  x: 3120,
+  y: 200,
+  width: 290,
+  height: 120,
+  fill: { r: 200, g: 220, b: 240 }
+}
+let cloud9 = {
+  x: 3010,
+  y: 210,
+  width: 200,
+  height: 60,
+  fill: { r: 200, g: 220, b: 240 }
+}
 
 //let kidSkin ={fill:,fills:{normal:,scared:,stung:}};
 
-////////////////////////////////,a:0                                a:0                       a:255
-let sourcils={fill:{r:0,g:0,b:0}, fills:{invisible:{r:0,g:0,b:0},visible:{r:0,g:0,b:0}}}
+////////////////////////////////,a:0                                
+let sourcils={fill:"black", fills:{invisible:{r:0,g:0,b:0},visible:{r:0,g:0,b:0}},width:1,height:1,maxWidth:100,minWidth:10,maxHeight:1,minHeight:1}
 
 let kidLips ={fill:{r:180,g:100,b:120},fills:{normal:{r:180,g:100,b:120},stung:{r:230,g:120,b:120}}}
 //kid
-//let kid
+//let kid200,400,60,90
 
-let img1;
+let ballon={fill:("#dda325ff"),x:200,y:400,width:60,height:90,velocity:0}
+
+let img1 ={beeMovingSound:false};
 function preload() {
   img1= loadImage("/assets/images/bee.png");
+
 }
 
 function setup() {
   createCanvas(1900, 900);
   background(100, 100, 10);  
- 
+  
+  //addEventListener("mousemove",beeMoving);
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function beeMoving(){beeMovingSound = true;}
 
+function mousePressed (){sting=true}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function draw() {
   // The void
   background("#599ce8ff");
+  
+  //if(beeMoving === true){sound}
+
+  cloudsMoving();
 
   checkInput();
-
- 
 
   //clouds__________________________________________________________________________________________________
 push();
@@ -140,7 +205,7 @@ pop();
 
 
 //sourcils
-push();noStroke();fill(sourcils.fill);angleMode(DEGREES);rotate(-30);rect(770,890,100,50);rotate(45);rect(1250,20,100,50);pop();
+push();noStroke();fill(sourcils.fill);angleMode(DEGREES);rotate(-30);rect(770,890,sourcils.width,sourcils.height);rotate(45);rect(1250,20,sourcils.width,sourcils.height);pop();
 
 
 //hat cap
@@ -154,13 +219,21 @@ push();
 fill(kidLips.fill.r,kidLips.fill.g,kidLips.fill.b);angleMode(DEGREES);rotate(-15);ellipse(930,880,150,50);rotate(15);ellipse(1110,570,150,50);
 pop();
 
+//ballon et tige
+push();fill(ballon.fill);ellipse(200,400,60,90);fill(0);rect(200,500,10,200);pop();
+
+
 image(img1,mouseX-295,mouseY-150,330,270); 
 
 push();fill(0),ellipse(200,400,60,120);pop();
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function checkInput(){
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function cloudsMoving(){
 
   const endOfCloud1=(cloud1.x<-440);
     if (endOfCloud1){cloud1.x=2120}
@@ -188,10 +261,10 @@ function checkInput(){
 
   const endOfCloud9=(cloud9.x<-200);
     if (endOfCloud9){cloud9.x=2000}
-
+}
   //const 
 
-  
+  function checkInput(){
 
 
 
