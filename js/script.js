@@ -63,16 +63,38 @@ let cloud9 = {
   height: 60,
   fill: { r: 200, g: 220, b: 240 }
 }
-
-let kidSkin ={
-  fill:{r:240, g:170, b:130},
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let target={
+  fill: "#000000",
   fills:{
-    normal:{r:240, g:170, b:130},
-    scared:{r:250, g:140, b:130},
-    stung: {r:180, g:100, b:120}
+    touch:"#33cc33",
+    normal:"#cc3333"
+  },
+  x:1280,
+  y:560,
+  size:550
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let kidSkin ={
+  fill:"#eeb47dff",
+  fills:{
+    normal:"#eeb47dff",
+    scared:"#dd918fff",
+    stung: "#ac7489ff"
   }
 };
 
+const hoveringBee = {
+    // is turned on. Starts out false (kidSkin.fill)
+    on: false
+}
                                
 let sourcils={
   fill:"black", 
@@ -109,17 +131,35 @@ let ballon={
 let speed=0.2;
 let direction=1;
 
-let img1 ={beeMovingSound:false};
 
+
+let img1 ={
+  width:330,
+  height:270
+};
+let soundBzz;
+let soundCry;
+let soundScared;
+let hasPlayed = false;
 function preload() {
   img1= loadImage("/assets/images/bee.png");
-  //soundFile = ;
-
+  soundBzz = loadSound("/assets/sounds/bzzz.mp3");
+  soundCry = loadSound("/assets/sounds/cry.mp3");
+  soundScared = loadSound("/assets/sounds/scared.mp3")
 }
+
+
+
 
 function setup() {
   createCanvas(1900, 1000);
   background(100, 100, 10); 
+  //soundBzz.setVolume(0.2);
+  soundBzz.loop();
+  soundCry.setVolume(1)
+  soundCry.setVolume(0.3);
+  getAudioContext().resume();
+  //soundCry.noLoop();
 
  
 
@@ -139,16 +179,26 @@ function beeMoving(){beeMovingSound = true;}
 function draw() {
   // The void
   background("#599ce8ff");
+
+ push();
+ drawCreature();
+ pop();
+
   noStroke()
   fill("#599ce8ff")
   rect(0,0,1900,900);
   
-  //if(beeMoving === true){sound}
+getAudioContext().resume();
+
 
   cloudsMoving();
-  
-
   checkInput();
+  
+let volume = map(mouseX,0,width,0,1);
+volume=constrain(volume,0,1);
+soundBzz.setVolume(volume);
+
+
 
   //clouds__________________________________________________________________________________________________
 push();
@@ -226,7 +276,7 @@ pop();
 //kid
 push();
 stroke(0);
-fill(kidSkin.fill.r,kidSkin.fill.g,kidSkin.fill.b);
+fill(kidSkin.fill);
 ellipse(1300,500,400,300);
 stroke(0);
 rect(1100,500,400);
@@ -260,7 +310,7 @@ push();noStroke();fill(sourcils.fill);angleMode(DEGREES);rotate(-30);rect(770,89
 push();stroke(0);strokeWeight(2);fill("#ece934ff");ellipse(1430,270,50);push();fill(230,100,100);angleMode(DEGREES);rotate(15);ellipse(1430,-35,200,130);rect(1150,-20,380,50);pop();
 
 push();stroke(0);fill(2200,190,220);rect(1270,700,250,75);rect(1070,700,75,75);noStroke();
-fill(kidSkin.fill.r,kidSkin.fill.g,kidSkin.fill.b);angleMode(DEGREES);rotate(-45);rect(315,1259,134);
+fill(kidSkin.fill);angleMode(DEGREES);rotate(-45);rect(315,1259,134);
 fill(40,30,200);rotate(-30);rect(-590,1050,110,270);pop();
 push();
 ////kid lips
@@ -276,14 +326,12 @@ if (ballon.x > ballon.maxX || ballon.x < ballon.minX) {
 
 
 //doigts kid
-push();fill(kidSkin.fill.r,kidSkin.fill.g,kidSkin.fill.b);ellipse(850,750,75,80);ellipse(790,760,100,130);pop();
+push();fill(kidSkin.fill);ellipse(850,750,75,80);ellipse(790,760,100,130);pop();
 
 
 
-
-
-image(img1,mouseX-295,mouseY-150,330,270); 
 push();
+image(img1,mouseX-295,mouseY-150,img1.width,img1.height); 
 fill("#ddd9a3ff");
 rect(0,890,1900,200)
 ;pop();
@@ -291,7 +339,7 @@ rect(0,890,1900,200)
 textSize(41);
 fill(0);
 strokeWeight(1.5);
-text('Do not let the bee close to the kid. BY THE LOVE OF GO DO NOT LET THE BEE STING THE KID!',45,960)
+text('Do not let the bee close to the kid. BY THE LOVE OF GOD DO NOT LET THE BEE STING THE KID!',38,960)
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -329,9 +377,42 @@ function cloudsMoving(){
   const endOfCloud9=(cloud9.x<-200);
     if (endOfCloud9){cloud9.x=2000}
 }
-  //const 
+function mouseMoved(){
+    const distMouseTarget= dist(img1.x,img1.y,target.x,target.y);
+    const mouseOnTarget= (distMouseTarget<target.width/2 & target.height/2)
+
+    //if{mouseMoved }
+}
 
   function checkInput(){
+    const distanceTargetMouse =dist(mouseX,mouseY,target.x,target.y);
+    const mouseOverlapsKid = (distanceTargetMouse<target.size/2);
+    if (mouseOverlapsKid)
+      {kidSkin.fill=kidSkin.fills.scared;
+      }else{
+      kidSkin.fill=kidSkin.fills.normal; 
+    }
+  if (mouseOverlapsKid) {
+    if (!hasPlayed) {
+      soundScared.play(); // Play the sound
+      hasPlayed = true; // Set the flag to true
+    }
+  } else {
+    // Reset the flag when the mouse is no longer hovering over the element
+    hasPlayed = false;
+  }
+
+  if (mouseOverlapsKid){sourcilsmontent}
+  }
+  
+
+ function drawCreature() {
+    push();
+    noStroke();
+    fill(target.fill);
+    // Display the creature at its position and size
+    ellipse(target.x, target.y, target.size);
+    pop();   
 
 
 
