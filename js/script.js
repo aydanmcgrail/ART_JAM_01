@@ -5,7 +5,8 @@ let cloud1 = {
   y:50,
   width:440,
   height:130,
-  fill:{r:200, g:220,b:240}}
+  fill:{r:200, g:220,b:240}
+}
 let cloud2 = {
   x: 2230,
   y: 50,
@@ -63,33 +64,72 @@ let cloud9 = {
   fill: { r: 200, g: 220, b: 240 }
 }
 
-//let kidSkin ={fill:,fills:{normal:,scared:,stung:}};
+let kidSkin ={
+  fill:{r:240, g:170, b:130},
+  fills:{
+    normal:{r:240, g:170, b:130},
+    scared:{r:250, g:140, b:130},
+    stung: {r:180, g:100, b:120}
+  }
+};
 
-////////////////////////////////,a:0                                
-let sourcils={fill:"black", fills:{invisible:{r:0,g:0,b:0},visible:{r:0,g:0,b:0}},width:1,height:1,maxWidth:100,minWidth:10,maxHeight:1,minHeight:1}
+                               
+let sourcils={
+  fill:"black", 
+  fills:{
+    invisible:{r:0,g:0,b:0},
+    visible:{r:0,g:0,b:0}
+  },
+  width:1,
+  height:1,
+  maxWidth:100,
+  minWidth:10,
+  maxHeight:1,
+  minHeight:1
+}
 
-let kidLips ={fill:{r:180,g:100,b:120},fills:{normal:{r:180,g:100,b:120},stung:{r:230,g:120,b:120}}}
-//kid
-//let kid200,400,60,90
+let kidLips ={
+  fill:{r:180,g:100,b:120},
+  fills:{
+    normal:{r:180,g:100,b:120},
+    stung:{r:230,g:120,b:120}
+  }
+  }
 
-let ballon={fill:("#dda325ff"),x:200,y:400,width:60,height:90,velocity:0}
+
+let ballon={
+  fill:{r:210,g:190,b:100},
+  x:813,
+  y:450,
+  width:170,
+  height:200,
+  maxX:830,
+  minX:800
+}
+let speed=0.2;
+let direction=1;
 
 let img1 ={beeMovingSound:false};
+
 function preload() {
   img1= loadImage("/assets/images/bee.png");
+  //soundFile = ;
 
 }
 
 function setup() {
-  createCanvas(1900, 900);
-  background(100, 100, 10);  
+  createCanvas(1900, 1000);
+  background(100, 100, 10); 
+
+ 
+
   
   //addEventListener("mousemove",beeMoving);
 }
 
 function beeMoving(){beeMovingSound = true;}
 
-function mousePressed (){sting=true}
+//function mousePressed (){sting=true}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,10 +139,14 @@ function mousePressed (){sting=true}
 function draw() {
   // The void
   background("#599ce8ff");
+  noStroke()
+  fill("#599ce8ff")
+  rect(0,0,1900,900);
   
   //if(beeMoving === true){sound}
 
   cloudsMoving();
+  
 
   checkInput();
 
@@ -182,13 +226,17 @@ pop();
 //kid
 push();
 stroke(0);
-fill(220,160,140);ellipse(1300,500,400,300);noStroke();stroke(0);rect(1100,500,400);noStroke();
+fill(kidSkin.fill.r,kidSkin.fill.g,kidSkin.fill.b);
+ellipse(1300,500,400,300);
+stroke(0);
+rect(1100,500,400);
 ellipse(820,770,150);
+noStroke();
 push();stroke(0);strokeWeight(2);ellipse(1100,485,210,60);ellipse(1500,500,100,150);ellipse(1490,500,80,110);ellipse(1470,500,60,75);pop();
 ellipse(1250,475,200);ellipse(1385,500,200);
 
 //clothes + neck skin at end
-fill(40,30,200);rect(1100,700,400,200);ellipse(1500,870,100,200),pop();
+push();fill(40,30,200);rect(1100,700,400,200);ellipse(1500,870,100,200),pop();
 
 
 push();
@@ -212,7 +260,7 @@ push();noStroke();fill(sourcils.fill);angleMode(DEGREES);rotate(-30);rect(770,89
 push();stroke(0);strokeWeight(2);fill("#ece934ff");ellipse(1430,270,50);push();fill(230,100,100);angleMode(DEGREES);rotate(15);ellipse(1430,-35,200,130);rect(1150,-20,380,50);pop();
 
 push();stroke(0);fill(2200,190,220);rect(1270,700,250,75);rect(1070,700,75,75);noStroke();
-fill(220,160,140);angleMode(DEGREES);rotate(-45);rect(315,1259,134);
+fill(kidSkin.fill.r,kidSkin.fill.g,kidSkin.fill.b);angleMode(DEGREES);rotate(-45);rect(315,1259,134);
 fill(40,30,200);rotate(-30);rect(-590,1050,110,270);pop();
 push();
 ////kid lips
@@ -220,18 +268,37 @@ fill(kidLips.fill.r,kidLips.fill.g,kidLips.fill.b);angleMode(DEGREES);rotate(-15
 pop();
 
 //ballon et tige
-push();fill(ballon.fill);ellipse(200,400,60,90);fill(0);rect(200,500,10,200);pop();
+push();fill(0);rect(810,550,10,300);fill(ballon.fill.r,ballon.fill.g,ballon.fill.b,);ellipse(ballon.x,ballon.y,ballon.width,ballon.height);pop();
+ballon.x +=speed *direction;
+if (ballon.x > ballon.maxX || ballon.x < ballon.minX) {
+  direction *= -1;
+}
+
+
+//doigts kid
+push();fill(kidSkin.fill.r,kidSkin.fill.g,kidSkin.fill.b);ellipse(850,750,75,80);ellipse(790,760,100,130);pop();
+
+
+
 
 
 image(img1,mouseX-295,mouseY-150,330,270); 
+push();
+fill("#ddd9a3ff");
+rect(0,890,1900,200)
+;pop();
 
-push();fill(0),ellipse(200,400,60,120);pop();
+textSize(41);
+fill(0);
+strokeWeight(1.5);
+text('Do not let the bee close to the kid. BY THE LOVE OF GO DO NOT LET THE BEE STING THE KID!',45,960)
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 function cloudsMoving(){
 
