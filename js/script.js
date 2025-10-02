@@ -67,7 +67,7 @@ let cloud9 = {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let target={
+let target1={
   fill: "#000000",
   fills:{
     touch:"#33cc33",
@@ -75,7 +75,24 @@ let target={
   },
   x:1280,
   y:560,
-  size:550
+  width:550,
+  height:550,
+  //size:550
+}
+
+const lipsTouched ={
+  touched:false
+}
+
+let target2={
+  fill: "red",
+  fills:{
+    touch:"blue",
+    normal:"red"
+  },
+  x:1110,
+  y:590,
+  size:1200
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,14 +104,10 @@ let kidSkin ={
   fills:{
     normal:"#eeb47dff",
     scared:"#dd918fff",
-    stung: "#ac7489ff"
+    stung: "#a16c8aff"
   }
 };
 
-const hoveringBee = {
-    // is turned on. Starts out false (kidSkin.fill)
-    on: false
-}
                                
 let sourcils={
   fill:"black", 
@@ -105,9 +118,9 @@ let sourcils={
   width:1,
   height:1,
   maxWidth:100,
-  minWidth:10,
-  maxHeight:1,
-  minHeight:1
+  minWidth:0.05,
+  maxHeight:50,
+  minHeight:0.05
 }
 
 let kidLips ={
@@ -137,19 +150,19 @@ let img1 ={
   width:330,
   height:270
 };
+
 let soundBzz;
 let soundCry;
 let soundScared;
+
 let hasPlayed = false;
+
 function preload() {
   img1= loadImage("/assets/images/bee.png");
   soundBzz = loadSound("/assets/sounds/bzzz.mp3");
   soundCry = loadSound("/assets/sounds/cry.mp3");
   soundScared = loadSound("/assets/sounds/scared.mp3")
 }
-
-
-
 
 function setup() {
   createCanvas(1900, 1000);
@@ -160,16 +173,9 @@ function setup() {
   soundCry.setVolume(0.3);
   getAudioContext().resume();
   //soundCry.noLoop();
-
- 
-
-  
-  //addEventListener("mousemove",beeMoving);
 }
 
-function beeMoving(){beeMovingSound = true;}
 
-//function mousePressed (){sting=true}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,9 +186,12 @@ function draw() {
   // The void
   background("#599ce8ff");
 
- push();
- drawCreature();
- pop();
+ //lipsTouched();
+ stungLips();
+
+ drawTarget1();
+ 
+ 
 
   noStroke()
   fill("#599ce8ff")
@@ -193,6 +202,7 @@ getAudioContext().resume();
 
   cloudsMoving();
   checkInput();
+  //mousePressed();
   
 let volume = map(mouseX,0,width,0,1);
 volume=constrain(volume,0,1);
@@ -267,6 +277,8 @@ push();
   ellipse(220, 410, 25);
 
 pop();
+
+drawTarget2();
 
 //vase
 push();
@@ -377,21 +389,36 @@ function cloudsMoving(){
   const endOfCloud9=(cloud9.x<-200);
     if (endOfCloud9){cloud9.x=2000}
 }
-function mouseMoved(){
-    const distMouseTarget= dist(img1.x,img1.y,target.x,target.y);
-    const mouseOnTarget= (distMouseTarget<target.width/2 & target.height/2)
 
-    //if{mouseMoved }
+function checkInput(){
+
+const distanceTarget2Mouse =dist(mouseX,mouseY,target2.x,target2.y);
+    const mouseOverlapsLips=(distanceTarget2Mouse<target2.size/2);
+
+
+    if (mouseOverlapsLips){
+      target2.fill=target2.fills.touch;
+    } else {
+      target2.fill=target2.fills.normal;
+    }
 }
 
+
   function checkInput(){
-    const distanceTargetMouse =dist(mouseX,mouseY,target.x,target.y);
-    const mouseOverlapsKid = (distanceTargetMouse<target.size/2);
-    if (mouseOverlapsKid)
-      {kidSkin.fill=kidSkin.fills.scared;
-      }else{
-      kidSkin.fill=kidSkin.fills.normal; 
-    }
+
+     const distanceTarget1Mouse =dist(mouseX,mouseY,target1.x,target1.y);
+    const mouseOverlapsKid = (distanceTarget1Mouse<target1.width/2 & target1.height/2);
+
+
+    if (mouseOverlapsKid){
+      kidSkin.fill=kidSkin.fills.scared;
+      }else if(mouseOverlapsKid&&mouseOverlapsLips){
+        kidSkin.fill=kidSkin.fills.stung
+      }else{ kidSkin.fill=kidSkin.fills.normal
+      }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///sound
+/////////////////////////////////////////////////////////////////////////////////////////////////
   if (mouseOverlapsKid) {
     if (!hasPlayed) {
       soundScared.play(); // Play the sound
@@ -402,20 +429,54 @@ function mouseMoved(){
     hasPlayed = false;
   }
 
-  if (mouseOverlapsKid){sourcilsmontent}
-  }
-  
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////sourcils
+/////////////////////////////////////////////////////////////////////////////////////////////////
+  if (mouseOverlapsKid){
+    sourcils.height+=50,
+    sourcils.height=constrain(sourcils.height,sourcils.minHeight,sourcils.maxHeight);
+    sourcils.width+=50;
+    sourcils.width=constrain(sourcils.width,sourcils.minWidth,sourcils.maxWidth);
+  } else {
+    sourcils.height-=50;
+    sourcils.height=constrain(sourcils.height,sourcils.minHeight,sourcils.maxHeight);
+    sourcils.width-=50;
+    sourcils.width=constrain(sourcils.width,sourcils.minWidth,sourcils.maxWidth);
+  } 
+}
 
- function drawCreature() {
+function mousePressed(){
+  const distanceTarget2Mouse =dist(mouseX,mouseY,target2.x,target2.y);
+  const mouseOverlapsLips=(distanceTarget2Mouse<target2.size);
+
+  if (mouseOverlapsLips) {
+    kidSkin.fill=kidSkin.fills.stung
+  }
+
+   
+
+}
+
+
+ function drawTarget1() {
     push();
     noStroke();
-    fill(target.fill);
-    // Display the creature at its position and size
-    ellipse(target.x, target.y, target.size);
+    fill(target1.fill);
+    // Display the target1 at its position and size         FOR THE BODY!!!!!!!
+    ellipse(target1.x, target1.y, target1.width,target1.height);
+    pop();  
+ } 
+
+function drawTarget2() {
+    push();
+    noStroke();
+    fill(target2.fill);
+    // Display the target2 at its position and size         FOR THE LIPS!!!!
+    ellipse(target2.x, target2.y,target2.size);
     pop();   
 
+}
 
-
-
+function stungLips(){
 
 }
