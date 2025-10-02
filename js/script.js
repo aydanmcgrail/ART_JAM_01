@@ -75,14 +75,16 @@ let target1={
   },
   x:1280,
   y:560,
-  width:550,
-  height:550,
-  //size:550
+  //width:550,
+  //height:550,
+  size:550
 }
 
-const lipsTouched ={
-  touched:false
-}
+let t2x = 1110;
+let t2y = 590;
+let t2w = 160;
+let t2h = 100;
+
 
 let target2={
   fill: "red",
@@ -92,7 +94,8 @@ let target2={
   },
   x:1110,
   y:590,
-  size:1200
+  width:160,
+  height:100
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -167,10 +170,10 @@ function preload() {
 function setup() {
   createCanvas(1900, 1000);
   background(100, 100, 10); 
-  //soundBzz.setVolume(0.2);
+  
   soundBzz.loop();
-  soundCry.setVolume(1)
-  soundCry.setVolume(0.3);
+  //soundCry.setVolume(1)
+  soundCry.setVolume(1);
   getAudioContext().resume();
   //soundCry.noLoop();
 }
@@ -187,7 +190,7 @@ function draw() {
   background("#599ce8ff");
 
  //lipsTouched();
- stungLips();
+
 
  drawTarget1();
  
@@ -202,7 +205,7 @@ getAudioContext().resume();
 
   cloudsMoving();
   checkInput();
-  //mousePressed();
+  
   
 let volume = map(mouseX,0,width,0,1);
 volume=constrain(volume,0,1);
@@ -233,6 +236,15 @@ ellipse(cloud9.x,cloud9.y,cloud9.width,cloud9.height);
 cloud9.x = cloud9.x-3;
 
 pop();
+
+
+////////target 2!!!!!!!!!!!
+push();
+noStroke();
+fill(0);
+ellipse(t2x,t2y,t2w,t2h);
+pop();
+/////////////////////////////////////////
    
 push();
   //gazon
@@ -278,7 +290,6 @@ push();
 
 pop();
 
-drawTarget2();
 
 //vase
 push();
@@ -353,6 +364,8 @@ fill(0);
 strokeWeight(1.5);
 text('Do not let the bee close to the kid. BY THE LOVE OF GOD DO NOT LET THE BEE STING THE KID!',38,960)
 
+
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -392,29 +405,14 @@ function cloudsMoving(){
 
 function checkInput(){
 
-const distanceTarget2Mouse =dist(mouseX,mouseY,target2.x,target2.y);
-    const mouseOverlapsLips=(distanceTarget2Mouse<target2.size/2);
-
-
-    if (mouseOverlapsLips){
-      target2.fill=target2.fills.touch;
-    } else {
-      target2.fill=target2.fills.normal;
-    }
-}
-
-
-  function checkInput(){
-
      const distanceTarget1Mouse =dist(mouseX,mouseY,target1.x,target1.y);
-    const mouseOverlapsKid = (distanceTarget1Mouse<target1.width/2 & target1.height/2);
+    const mouseOverlapsKid = (distanceTarget1Mouse<target1.size/2);
 
 
     if (mouseOverlapsKid){
       kidSkin.fill=kidSkin.fills.scared;
-      }else if(mouseOverlapsKid&&mouseOverlapsLips){
-        kidSkin.fill=kidSkin.fills.stung
-      }else{ kidSkin.fill=kidSkin.fills.normal
+      }
+      else{ kidSkin.fill=kidSkin.fills.normal
       }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///sound
@@ -446,16 +444,19 @@ const distanceTarget2Mouse =dist(mouseX,mouseY,target2.x,target2.y);
 }
 
 function mousePressed(){
-  const distanceTarget2Mouse =dist(mouseX,mouseY,target2.x,target2.y);
-  const mouseOverlapsLips=(distanceTarget2Mouse<target2.size);
-
-  if (mouseOverlapsLips) {
-    kidSkin.fill=kidSkin.fills.stung
-  }
-
-   
-
+  let d = dist(mouseX,mouseY,target2.x,target2.y);
+  if(d< target2.width/2){
+    soundCry.play();
+    soundScared.setVolume(0);
+    fill("#ddd9a3ff");
+    rect(0,890,1900,200);
+    textSize(41);
+    fill(0);
+    strokeWeight(1.5);
+    text('There you go, told you so! You have killed a kid...',38,960)
 }
+}
+
 
 
  function drawTarget1() {
@@ -463,7 +464,7 @@ function mousePressed(){
     noStroke();
     fill(target1.fill);
     // Display the target1 at its position and size         FOR THE BODY!!!!!!!
-    ellipse(target1.x, target1.y, target1.width,target1.height);
+    ellipse(target1.x, target1.y, target1.size);
     pop();  
  } 
 
@@ -472,11 +473,8 @@ function drawTarget2() {
     noStroke();
     fill(target2.fill);
     // Display the target2 at its position and size         FOR THE LIPS!!!!
-    ellipse(target2.x, target2.y,target2.size);
+    ellipse(target2.x, target2.y,target2.width,target2.height);
     pop();   
 
 }
 
-function stungLips(){
-
-}
