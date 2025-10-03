@@ -127,13 +127,53 @@ let sourcils={
 }
 
 let kidLips ={
-  fill:{r:180,g:100,b:120},
+  fill:"#da8194ff",
   fills:{
-    normal:{r:180,g:100,b:120},
-    stung:{r:230,g:120,b:120}
-  }
+    normal:"#da8194ff",
+    stung:"#854367ff"
+  },
+  x1:930,
+  y1:880,
+  x2:1110,
+  y2:570,
+  rotate1:-15,
+  rotate2:10, 
+  width:170,
+  height:60,
+  maxWidth:250,
+  minWidth:150,
+  maxHeight:130,
+  minHeight:50,
   }
 
+
+let eyesBlack ={
+  x1:1160,
+  y1:430,
+  x2:1215,
+  maxY1:435,
+  minY1:418,
+  width:40,
+  height:60,
+  maxWidth:46,
+  minWidth:20,
+  maxHeight:65,
+  minHeight:10,
+
+
+}
+let eyesWhite ={
+  x1:1175,
+  y1:420,
+  x2:1230,
+  width:70,
+  height:110,
+  maxWidth:76,
+  minWidth:73,
+  maxHeight:112,
+  minHeight:10,
+
+}
 
 let ballon={
   fill:{r:210,g:190,b:100},
@@ -144,9 +184,11 @@ let ballon={
   maxX:830,
   minX:800
 }
+
+///for the ballon
+let speedUp= 4
 let speed=0.2;
 let direction=1;
-
 
 
 let img1 ={
@@ -157,6 +199,7 @@ let img1 ={
 let soundBzz;
 let soundCry;
 let soundScared;
+let soundNeedle;
 
 let hasPlayed = false;
 
@@ -165,6 +208,7 @@ function preload() {
   soundBzz = loadSound("/assets/sounds/bzzz.mp3");
   soundCry = loadSound("/assets/sounds/cry.mp3");
   soundScared = loadSound("/assets/sounds/scared.mp3")
+  soundNeedle = loadSound("/assets/sounds/needle.mp3")
 }
 
 function setup() {
@@ -172,10 +216,11 @@ function setup() {
   background(100, 100, 10); 
   
   soundBzz.loop();
-  //soundCry.setVolume(1)
-  soundCry.setVolume(1);
+  soundCry.setVolume(0.8);
+
+  //////do not know if it goes in setup or draw i put it in both to be sure
   getAudioContext().resume();
-  //soundCry.noLoop();
+  
 }
 
 
@@ -186,27 +231,22 @@ function setup() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function draw() {
-  // The void
+  
   background("#599ce8ff");
-
- //lipsTouched();
 
 
  drawTarget1();
  
- 
-
   noStroke()
   fill("#599ce8ff")
   rect(0,0,1900,900);
   
 getAudioContext().resume();
 
-
   cloudsMoving();
   checkInput();
   
-  
+
 let volume = map(mouseX,0,width,0,1);
 volume=constrain(volume,0,1);
 soundBzz.setVolume(volume);
@@ -237,14 +277,6 @@ cloud9.x = cloud9.x-3;
 
 pop();
 
-
-////////target 2!!!!!!!!!!!
-push();
-noStroke();
-fill(0);
-ellipse(t2x,t2y,t2w,t2h);
-pop();
-/////////////////////////////////////////
    
 push();
   //gazon
@@ -258,18 +290,20 @@ pop();
  
 push();
   //noStroke();
+  strokeWeight(2);
   fill(240, 260, 100);
   stroke(0);
   ellipse(200,255,50,180);
   ellipse(330,390,180,50);
   ellipse(70,390,180,50);
 //petales en angle
-  angleMode(DEGREES);     rotate(-30);ellipse(-110, 640, 110, 30);      rotate(20);ellipse(130,670, 140, 35);
+  angleMode(DEGREES);      rotate(-30);ellipse(-110, 640, 110, 30);      rotate(20);ellipse(130,670, 140, 35);
 pop();
 
 //plant trunk black dots
 push();
   fill(0);
+  strokeWeight(3); 
   stroke(255);
   ellipse(200,540,44,38);ellipse(190,565,38,34);ellipse(178,588,30);ellipse(170,612,25);ellipse(173,632,20);ellipse(182,649,23);
   ellipse(191,668,25);ellipse(205,684,27);ellipse(220,699,32);ellipse(230,720,40);ellipse(252,750,80,60);ellipse(300,780,160,80);
@@ -298,6 +332,7 @@ pop();
 
 //kid
 push();
+strokeWeight(2);
 stroke(0);
 fill(kidSkin.fill);
 ellipse(1300,500,400,300);
@@ -317,12 +352,15 @@ push();
 fill(255);
 stroke(0);
 strokeWeight(2);
-ellipse(1175,420,70,110);
-ellipse(1230,420,70,110);
+ellipse(eyesWhite.x1,eyesWhite.y1,eyesWhite.width,eyesWhite.height);
+ellipse(eyesWhite.x2,eyesWhite.y1,eyesWhite.width,eyesWhite.height);
 fill(0);
-ellipse(1160,430,40,60);
-ellipse(1215,430,40,60);
+ellipse(eyesBlack.x1,eyesBlack.y1,eyesBlack.width,eyesBlack.height);
+ellipse(eyesBlack.x2,eyesBlack.y1,eyesBlack.width,eyesBlack.height);
 pop();
+
+//eyesBlack.x1,eyesBlack.y1,eyesBlack.width,eyesBlack.height);
+//ellipse(eyesBlack.x2,eyesBlack.y1,eyesBlack.width,eyesBlack.height);
 
 
 //sourcils
@@ -336,9 +374,7 @@ push();stroke(0);fill(2200,190,220);rect(1270,700,250,75);rect(1070,700,75,75);n
 fill(kidSkin.fill);angleMode(DEGREES);rotate(-45);rect(315,1259,134);
 fill(40,30,200);rotate(-30);rect(-590,1050,110,270);pop();
 push();
-////kid lips
-fill(kidLips.fill.r,kidLips.fill.g,kidLips.fill.b);angleMode(DEGREES);rotate(-15);ellipse(930,880,150,50);rotate(15);ellipse(1110,570,150,50);
-pop();
+
 
 //ballon et tige
 push();fill(0);rect(810,550,10,300);fill(ballon.fill.r,ballon.fill.g,ballon.fill.b,);ellipse(ballon.x,ballon.y,ballon.width,ballon.height);pop();
@@ -351,18 +387,74 @@ if (ballon.x > ballon.maxX || ballon.x < ballon.minX) {
 //doigts kid
 push();fill(kidSkin.fill);ellipse(850,750,75,80);ellipse(790,760,100,130);pop();
 
-
+////kid lips
+push();
+fill(kidLips.fill);
+angleMode(DEGREES);
+rotate(kidLips.rotate1);
+ellipse(920,880,kidLips.width,kidLips.height);
+pop();
 
 push();
-image(img1,mouseX-295,mouseY-150,img1.width,img1.height); 
+
+fill(255);
+rect(1117,565,33,50);
+rect(1080,560,30,50)
+pop();
+
+push();
+fill(kidLips.fill);
+angleMode(DEGREES);
+rotate(kidLips.rotate2);
+ellipse(1190,360,kidLips.width,kidLips.height);
+pop();
+
+push();
+image(img1,mouseX-295,mouseY-150,img1.width,img1.height);
+strokeWeight(6); 
 fill("#ddd9a3ff");
-rect(0,890,1900,200)
+rect(-5,890,1910,200)
 ;pop();
 
 textSize(41);
 fill(0);
-strokeWeight(1.5);
+strokeWeight(2);
 text('Do not let the bee close to the kid. BY THE LOVE OF GOD DO NOT LET THE BEE STING THE KID!',38,960)
+
+if (soundCry.isPlaying()){
+  fill("#888452ff");
+  strokeWeight(6); 
+    rect(-5,890,1910,200);
+    textSize(72);
+    fill("#f3663bff");
+    noStroke();
+    text('There you go, told you so! This kid just died...',150,970);
+//ballon up
+    ballon.y-=speedUp;
+//lips
+    kidLips.fill=kidLips.fills.stung;
+    kidLips.width+=1;
+    kidLips.width=constrain(kidLips.width,kidLips.minWidth,kidLips.maxWidth);
+    kidLips.height+=1;
+    kidLips.height=constrain(kidLips.height,kidLips.minHeight,kidLips.maxHeight);
+//eyes
+     eyesBlack.width-=30;
+     eyesBlack.width=constrain(eyesBlack.width,eyesBlack.minWidth,eyesBlack.maxWidth);
+     
+     eyesBlack.height-=30;
+     eyesBlack.height=constrain(eyesBlack.height,eyesBlack.minHeight,eyesBlack.maxHeight);
+
+     eyesBlack.y1-=1;
+     eyesBlack.y1=constrain(eyesBlack.y1,eyesBlack.minY1,eyesBlack.maxY1);
+
+     eyesWhite.width-=0.2;
+     eyesWhite.width=constrain(eyesWhite.width,eyesWhite.minWidth,eyesWhite.maxWidth);
+
+     eyesWhite.height-=0.2;
+     eyesWhite.height=constrain(eyesWhite.height,eyesWhite.minHeight,eyesWhite.minHeight);
+     
+
+} 
 
 
 
@@ -405,19 +497,23 @@ function cloudsMoving(){
 
 function checkInput(){
 
-     const distanceTarget1Mouse =dist(mouseX,mouseY,target1.x,target1.y);
+    const distanceTarget1Mouse =dist(mouseX,mouseY,target1.x,target1.y);
     const mouseOverlapsKid = (distanceTarget1Mouse<target1.size/2);
 
 
+
+    if (mouseIsPressed === false && kidSkin.fill!==kidSkin.fills.stung){
     if (mouseOverlapsKid){
       kidSkin.fill=kidSkin.fills.scared;
       }
       else{ kidSkin.fill=kidSkin.fills.normal
       }
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///sound
 /////////////////////////////////////////////////////////////////////////////////////////////////
-  if (mouseOverlapsKid) {
+  
+if (mouseOverlapsKid) {
     if (!hasPlayed) {
       soundScared.play(); // Play the sound
       hasPlayed = true; // Set the flag to true
@@ -430,7 +526,9 @@ function checkInput(){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////sourcils
 /////////////////////////////////////////////////////////////////////////////////////////////////
-  if (mouseOverlapsKid){
+  
+if (mouseIsPressed === false && kidSkin.fill!==kidSkin.fills.stung){
+if (mouseOverlapsKid){
     sourcils.height+=50,
     sourcils.height=constrain(sourcils.height,sourcils.minHeight,sourcils.maxHeight);
     sourcils.width+=50;
@@ -442,21 +540,22 @@ function checkInput(){
     sourcils.width=constrain(sourcils.width,sourcils.minWidth,sourcils.maxWidth);
   } 
 }
+}
 
 function mousePressed(){
   let d = dist(mouseX,mouseY,target2.x,target2.y);
   if(d< target2.width/2){
     soundCry.play();
+    soundNeedle.play();
     soundScared.setVolume(0);
-    fill("#ddd9a3ff");
-    rect(0,890,1900,200);
-    textSize(41);
-    fill(0);
-    strokeWeight(1.5);
-    text('There you go, told you so! You have killed a kid...',38,960)
+    kidSkin.fill=kidSkin.fills.stung;
+    sourcils.height+=50,
+    sourcils.height=constrain(sourcils.height,sourcils.minHeight,sourcils.maxHeight);
+    sourcils.width+=50;
+    sourcils.width=constrain(sourcils.width,sourcils.minWidth,sourcils.maxWidth);
+    
+  }  
 }
-}
-
 
 
  function drawTarget1() {
@@ -467,6 +566,7 @@ function mousePressed(){
     ellipse(target1.x, target1.y, target1.size);
     pop();  
  } 
+
 
 function drawTarget2() {
     push();

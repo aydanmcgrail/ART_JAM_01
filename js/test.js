@@ -15,7 +15,7 @@ function setup() {
 
 
 drawTarget2();
-checkInput();
+checkI
 
 }
 function checkInput(){
