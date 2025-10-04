@@ -204,11 +204,11 @@ let soundNeedle;
 let hasPlayed = false;
 
 function preload() {
-  img1= loadImage("/assets/images/bee.png");
-  soundBzz = loadSound("/assets/sounds/bzzz.mp3");
-  soundCry = loadSound("/assets/sounds/cry.mp3");
-  soundScared = loadSound("/assets/sounds/scared.mp3")
-  soundNeedle = loadSound("/assets/sounds/needle.mp3")
+  img1= loadImage("assets/images/bee.png");
+  soundBzz = loadSound("assets/sounds/bzzz.mp3");
+  soundCry = loadSound("assets/sounds/cry.mp3");
+  soundScared = loadSound("assets/sounds/scared.mp3")
+  soundNeedle = loadSound("assets/sounds/needle.mp3")
 }
 
 function setup() {
